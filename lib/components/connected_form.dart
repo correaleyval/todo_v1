@@ -8,6 +8,8 @@ import 'package:todo/pages/login_page.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:getflutter/getflutter.dart';
+
 class ConnectedForm extends StatefulWidget {
   final String username;
 
@@ -85,7 +87,9 @@ class _ConnectedFormState extends State<ConnectedForm> {
       borderRadius: 0.0,
       progressWidget: Container(
         padding: EdgeInsets.all(8.0),
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(GFColors.FOCUS),
+        ),
       ),
       messageTextStyle: TextStyle(
         color: Colors.black,
@@ -100,7 +104,7 @@ class _ConnectedFormState extends State<ConnectedForm> {
             padding: EdgeInsets.all(4.0),
             child: Text(
               'Conectado',
-              style: TextStyle(color: Colors.blue, fontSize: 20),
+              style: TextStyle(color: GFColors.SUCCESS, fontSize: 20),
             ),
           ),
           Padding(
@@ -109,7 +113,7 @@ class _ConnectedFormState extends State<ConnectedForm> {
               child: Icon(
                 Icons.network_wifi,
                 size: 64,
-                color: Colors.blue,
+                color: GFColors.SUCCESS,
               ),
             ),
           ),
@@ -117,7 +121,7 @@ class _ConnectedFormState extends State<ConnectedForm> {
             padding: EdgeInsets.all(5.0),
             child: Text(
               remaining == null ? '' : time,
-              style: TextStyle(color: Colors.red, fontSize: 20),
+              style: TextStyle(color: GFColors.WHITE, fontSize: 20),
             ),
           ),
           exitButton()
@@ -130,9 +134,10 @@ class _ConnectedFormState extends State<ConnectedForm> {
     if (widget.username != null)
       return Padding(
         padding: EdgeInsets.all(10.0),
-        child: MaterialButton(
-          color: Colors.blue,
-          minWidth: MediaQuery.of(context).size.width,
+        child: GFButton(
+          color: GFColors.SUCCESS,
+          fullWidthButton: true,
+          shape: GFButtonShape.pills,
           child: Text(
             'Salir',
             style: TextStyle(color: Colors.white),

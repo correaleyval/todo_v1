@@ -8,6 +8,8 @@ import 'package:nauta_api/nauta_api.dart';
 
 import 'package:todo/pages/connected_page.dart';
 
+import 'package:getflutter/getflutter.dart';
+
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title = 'NAUTA'}) : super(key: key);
 
@@ -30,7 +32,14 @@ class _LoginPageState extends State<LoginPage> {
       borderRadius: 0.0,
       progressWidget: Container(
         padding: EdgeInsets.all(8.0),
-        child: CircularProgressIndicator(),
+        child: GFLoader(
+          type: GFLoaderType.custom,
+          loaderIconOne: Icon(
+            Icons.developer_mode,
+            size: 128,
+          ),
+          size: 32,
+        ),
       ),
       messageTextStyle: TextStyle(
         color: Colors.black,
@@ -42,20 +51,25 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-        title: Text(widget.title),
+      appBar: GFAppBar(
+        iconTheme: IconThemeData(color: GFColors.SUCCESS),
+        backgroundColor: GFColors.FOCUS,
+        title: Text(
+          widget.title,
+          style: TextStyle(color: GFColors.SUCCESS),
+        ),
         elevation: 0,
       ),
       body: ListView(
         children: <Widget>[
           Container(
             height: 100,
-            color: Colors.blue,
+            color: GFColors.FOCUS,
             child: Center(
               child: Icon(
                 Icons.wifi_lock,
                 size: 64,
-                color: Colors.white,
+                color: GFColors.SUCCESS,
               ),
             ),
           ),
@@ -97,8 +111,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         );
-
-        
       } // end if isConnected
     } on NautaException catch (e) {
       await prefs.remove('nauta_username');

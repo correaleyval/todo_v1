@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getflutter/getflutter.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 import 'package:todo/models/user.dart';
@@ -28,10 +29,12 @@ class _LoginFormState extends State<LoginForm> {
       borderRadius: 0.0,
       progressWidget: Container(
         padding: EdgeInsets.all(8.0),
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(GFColors.FOCUS),
+        ),
       ),
       messageTextStyle: TextStyle(
-        color: Colors.black,
+        color: GFColors.FOCUS,
         fontSize: 19.0,
       ),
     );
@@ -44,7 +47,7 @@ class _LoginFormState extends State<LoginForm> {
             padding: EdgeInsets.all(5.0),
             child: Text(
               'Login Nauta',
-              style: TextStyle(color: Colors.blue, fontSize: 20),
+              style: TextStyle(color: GFColors.FOCUS, fontSize: 20),
             ),
           ),
           Padding(
@@ -56,6 +59,7 @@ class _LoginFormState extends State<LoginForm> {
                   prefixIcon: Icon(
                     Icons.alternate_email,
                     size: 28,
+                    color: GFColors.FOCUS,
                   )),
               validator: (value) {
                 if (value.isEmpty) {
@@ -79,6 +83,7 @@ class _LoginFormState extends State<LoginForm> {
                 prefixIcon: Icon(
                   Icons.lock_outline,
                   size: 28,
+                  color: GFColors.FOCUS,
                 ),
               ),
               validator: (value) {
@@ -96,9 +101,10 @@ class _LoginFormState extends State<LoginForm> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.all(10.0),
-                child: MaterialButton(
-                  color: Colors.blue,
-                  minWidth: MediaQuery.of(context).size.width,
+                child: GFButton(
+                  fullWidthButton: true,
+                  shape: GFButtonShape.pills,
+                  color: GFColors.FOCUS,
                   child: Text(
                     'Conectar',
                     style: TextStyle(color: Colors.white),
@@ -113,8 +119,12 @@ class _LoginFormState extends State<LoginForm> {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.all(2.0),
-                child: MaterialButton(
-                  color: Colors.lightBlue,
+                child: GFButton(
+                  icon: Icon(
+                    Icons.monetization_on,
+                    color: GFColors.WHITE,
+                  ),
+                  color: GFColors.FOCUS,
                   child: Text(
                     'Consultar crédito',
                     style: TextStyle(color: Colors.white),
@@ -124,8 +134,12 @@ class _LoginFormState extends State<LoginForm> {
               ),
               Padding(
                 padding: EdgeInsets.all(2.0),
-                child: MaterialButton(
-                  color: Colors.lightBlue,
+                child: GFButton(
+                  icon: Icon(
+                    Icons.wifi,
+                    color: GFColors.WHITE,
+                  ),
+                  color: GFColors.FOCUS,
                   child: Text(
                     'Portal Nauta',
                     style: TextStyle(color: Colors.white),

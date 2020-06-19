@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:getflutter/getflutter.dart';
 import 'package:todo/components/connected_form.dart';
 
 class ConnectedPage extends StatefulWidget {
-  ConnectedPage({Key key, this.title = 'Conectado', this.username}) : super(key: key);
+  ConnectedPage({Key key, this.title = 'Conectado', this.username})
+      : super(key: key);
 
   final String title;
   final String username;
@@ -15,20 +17,26 @@ class _ConnectedPageState extends State<ConnectedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
+        appBar: GFAppBar(
+          centerTitle: true,
+          iconTheme: IconThemeData(color: GFColors.SUCCESS),
+          backgroundColor: GFColors.FOCUS,
+          title: Text(
+            widget.title.toUpperCase(),
+            style: TextStyle(color: GFColors.SUCCESS),
+          ),
           elevation: 0,
         ),
         body: ListView(
           children: <Widget>[
             Container(
               height: 80,
-              color: Colors.blue,
+              color: GFColors.FOCUS,
               child: Center(
                 child: Icon(
                   Icons.wifi,
                   size: 64,
-                  color: Colors.white,
+                  color: GFColors.SUCCESS,
                 ),
               ),
             ),
@@ -38,6 +46,7 @@ class _ConnectedPageState extends State<ConnectedPage> {
                   child: Padding(
                       padding: EdgeInsets.all(10.0),
                       child: Card(
+                        color: GFColors.FOCUS,
                         child: Padding(
                             padding: EdgeInsets.all(20.0),
                             child: ConnectedForm(
