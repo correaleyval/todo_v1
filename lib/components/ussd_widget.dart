@@ -6,6 +6,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:todo/services/contacts.dart';
 import 'package:todo/services/phone.dart';
 import 'package:todo/models/ussd_codes.dart';
+import 'package:getflutter/getflutter.dart';
 
 class UssdRootWidget extends StatefulWidget {
   _UssdRootState createState() => _UssdRootState();
@@ -40,10 +41,10 @@ class _UssdRootState extends State<UssdRootWidget> {
             if (index == 0)
               return Container(
                 height: 100,
-                color: Colors.blue,
+                color: GFColors.FOCUS,
                 child: Center(
-                  child:
-                      Icon(Icons.developer_mode, size: 64, color: Colors.white),
+                  child: Icon(Icons.developer_mode,
+                      size: 64, color: GFColors.SUCCESS),
                 ),
               );
 
@@ -60,7 +61,14 @@ class _UssdRootState extends State<UssdRootWidget> {
           });
 
     return Center(
-      child: CircularProgressIndicator(),
+      child: GFLoader(
+        type: GFLoaderType.custom,
+        loaderIconOne: Icon(
+          Icons.developer_mode,
+          size: 128,
+        ),
+        size: 100,
+      ),
     );
   }
 }
@@ -85,12 +93,16 @@ class UssdCategoryWidget extends StatelessWidget {
         );
       },
       child: Column(children: <Widget>[
-        ListTile(
-          leading: Icon(category.icon, color: Colors.blue),
-          title: Text(category.name.toUpperCase()),
+        GFListTile(
+          avatar: Icon(category.icon, color: GFColors.FOCUS),
+          title: Text(
+            category.name.toUpperCase(),
+            style: TextStyle(color: GFColors.FOCUS),
+          ),
         ),
         Divider(
-          color: Colors.blue,
+          color: GFColors.FOCUS,
+          thickness: 1.3,
         )
       ]),
     );
@@ -107,9 +119,14 @@ class UssdWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: GFAppBar(
         elevation: 0,
-        title: Text(title),
+        title: Text(
+          title,
+          style: TextStyle(color: GFColors.SUCCESS),
+        ),
+        backgroundColor: GFColors.FOCUS,
+        iconTheme: IconThemeData(color: GFColors.SUCCESS),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -119,8 +136,8 @@ class UssdWidgets extends StatelessWidget {
               if (index == 0)
                 return Container(
                   height: 100,
-                  color: Colors.blue,
-                  child: Icon(icon, size: 64, color: Colors.white),
+                  color: GFColors.FOCUS,
+                  child: Icon(icon, size: 64, color: GFColors.SUCCESS),
                 );
 
               var item = ussdItems[index - 1];
@@ -172,12 +189,13 @@ class SimpleCode extends StatelessWidget {
         callTo(code);
       },
       child: Column(children: <Widget>[
-        ListTile(
-          leading: Icon(icon, color: Colors.blue),
+        GFListTile(
+          avatar: Icon(icon, color: GFColors.FOCUS),
           title: Text(name.toUpperCase()),
         ),
         Divider(
-          color: Colors.blue,
+          color: GFColors.FOCUS,
+          thickness: 1.3,
         )
       ]),
     );
@@ -203,12 +221,13 @@ class CodeWithForm extends StatelessWidget {
         );
       },
       child: Column(children: <Widget>[
-        ListTile(
-          leading: Icon(code.icon, color: Colors.blue),
+        GFListTile(
+          avatar: Icon(code.icon, color: GFColors.FOCUS),
           title: Text(code.name.toUpperCase()),
         ),
         Divider(
-          color: Colors.blue,
+          color: GFColors.FOCUS,
+          thickness: 1.3,
         )
       ]),
     );
@@ -223,9 +242,14 @@ class CodeFormPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: GFAppBar(
         elevation: 0,
-        title: Text(code.name.toUpperCase()),
+        title: Text(
+          code.name.toUpperCase(),
+          style: TextStyle(color: GFColors.SUCCESS),
+        ),
+        backgroundColor: GFColors.FOCUS,
+        iconTheme: IconThemeData(color: GFColors.SUCCESS),
       ),
       body: Container(
         alignment: Alignment.center,
@@ -282,9 +306,9 @@ class _CodeFormState extends State<CodeForm> {
           if (index == widget.fields.length) {
             return Padding(
               padding: EdgeInsets.all(10.0),
-              child: MaterialButton(
-                color: Colors.blue,
-                minWidth: MediaQuery.of(context).size.width,
+              child: GFButton(
+                color: GFColors.FOCUS,
+                shape: GFButtonShape.pills,
                 child: Text(
                   'Aceptar',
                   style: TextStyle(color: Colors.white),
@@ -323,21 +347,24 @@ class _CodeFormState extends State<CodeForm> {
                 decoration: InputDecoration(
                     labelText: field.name.toUpperCase(),
                     suffixIcon: FlatButton(
-                        onPressed: () async {
-                          String number = await getContactPhoneNumber();
+                      onPressed: () async {
+                        String number = await getContactPhoneNumber();
 
-                          phoneNumberController.text = number;
-                          phoneNumberController.addListener(() {
-                            phoneNumberController.selection =
-                                TextSelection(baseOffset: 8, extentOffset: 8);
-                          });
-                        },
-                        child: Icon(
-                          Icons.contacts,
-                          color: Colors.blue,
-                        )),
+                        phoneNumberController.text = number;
+                        phoneNumberController.addListener(() {
+                          phoneNumberController.selection =
+                              TextSelection(baseOffset: 8, extentOffset: 8);
+                        });
+                      },
+                      child: Icon(
+                        Icons.contacts,
+                        color: GFColors.FOCUS,
+                        size: 32,
+                      ),
+                    ),
                     prefixIcon: Icon(
                       Icons.phone,
+                      color: GFColors.FOCUS,
                     )),
                 validator: (value) {
                   if (value.isEmpty) {
@@ -372,6 +399,7 @@ class _CodeFormState extends State<CodeForm> {
                       labelText: field.name.toUpperCase(),
                       prefixIcon: Icon(
                         Icons.attach_money,
+                        color: GFColors.FOCUS,
                       )),
                   validator: (value) {
                     if (value.isEmpty) {
@@ -407,6 +435,7 @@ class _CodeFormState extends State<CodeForm> {
                     labelText: field.name.toUpperCase(),
                     prefixIcon: Icon(
                       Icons.vpn_key,
+                      color: GFColors.FOCUS,
                     )),
                 validator: (value) {
                   if (value.isEmpty) {

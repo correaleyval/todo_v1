@@ -4,6 +4,8 @@ import 'package:todo/pages/login_page.dart';
 
 import 'package:todo/components/ussd_widget.dart';
 
+import 'package:getflutter/getflutter.dart';
+
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
 
@@ -18,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        backgroundColor: GFColors.FOCUS,
         onPressed: () {
           Navigator.push(
             context,
@@ -28,11 +31,15 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         },
-        child: Icon(Icons.wifi),
+        child: Icon(Icons.wifi, color: GFColors.SUCCESS),
       ),
-      appBar: AppBar(
+      appBar: GFAppBar(
         elevation: 0,
-        title: Text(widget.title),
+        title: Text(
+          widget.title,
+          style: TextStyle(color: GFColors.SUCCESS),
+        ),
+        backgroundColor: GFColors.FOCUS,
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
