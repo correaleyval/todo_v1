@@ -378,6 +378,8 @@ class _CodeFormState extends State<CodeForm> {
                   if (value[0] != '5') {
                     return 'Este campo debe comenzar con el dígito 5';
                   }
+
+                  return null;
                 },
                 keyboardType: TextInputType.phone,
                 onSaved: (val) {
@@ -413,6 +415,8 @@ class _CodeFormState extends State<CodeForm> {
                     } catch (e) {
                       return 'Este campo solo puede conetener digitos';
                     }
+
+                    return null;
                   },
                   keyboardType: TextInputType.number,
                   onSaved: (val) {
@@ -445,6 +449,8 @@ class _CodeFormState extends State<CodeForm> {
                   if (value.length != 4) {
                     return 'La clave debe contener 4 dígitos';
                   }
+
+                  return null;
                 },
                 keyboardType: TextInputType.number,
                 onSaved: (val) {
@@ -476,6 +482,8 @@ class _CodeFormState extends State<CodeForm> {
                   if (value.length != 16) {
                     return 'El número de la tarjeta debe contener 16 dígitos';
                   }
+
+                  return null;
                 },
                 keyboardType: TextInputType.number,
                 onSaved: (val) {
