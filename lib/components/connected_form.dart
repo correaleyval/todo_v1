@@ -185,9 +185,10 @@ class _ConnectedFormState extends State<ConnectedForm> {
     if (widget.username != null) {
       return Padding(
         padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
-        child: MaterialButton(
-            color: Colors.blue,
-            minWidth: MediaQuery.of(context).size.width,
+        child: GFButton(
+            color: GFColors.PRIMARY,
+            fullWidthButton: true,
+            shape: GFButtonShape.pills,
             child: Text(
               'Actualizar',
               style: TextStyle(color: Colors.white),
