@@ -22,6 +22,7 @@ class ConnectedForm extends StatefulWidget {
 class _ConnectedFormState extends State<ConnectedForm> {
   NautaClient nautaClient;
   ProgressDialog pr;
+
   get time => remaining.toString().split('.')[0];
 
   Duration remaining;
@@ -124,6 +125,7 @@ class _ConnectedFormState extends State<ConnectedForm> {
               style: TextStyle(color: GFColors.WHITE, fontSize: 20),
             ),
           ),
+          refreshButton(),
           exitButton()
         ],
       ),
@@ -178,4 +180,36 @@ class _ConnectedFormState extends State<ConnectedForm> {
 
     return Text('');
   }
+
+  Widget refreshButton() {
+    if (widget.username != null) {
+      return Padding(
+        padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
+        child: MaterialButton(
+            color: Colors.blue,
+            minWidth: MediaQuery.of(context).size.width,
+            child: Text(
+              'Actualizar',
+              style: TextStyle(color: Colors.white),
+            ),
+            onPressed: () async {
+              nautaClient.remainingTime().then((value) {
+                final rtime = value.split(':');
+                final hour = rtime[0];
+                final min = rtime[1];
+                final sec = rtime[2];
+                setState(() {
+                  remaining = Duration(
+                    hours: int.parse(hour),
+                    minutes: int.parse(min),
+                    seconds: int.parse(sec),
+                  );
+                });
+              });
+            }),
+      );
+    }
+    return Text("");
+  }
+
 }
