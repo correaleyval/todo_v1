@@ -50,20 +50,33 @@ class _LoginPageState extends State<LoginPage> {
     reconnect();
 
     return Scaffold(
+      backgroundColor: GFColors.FOCUS,
       key: _scaffoldKey,
       appBar: GFAppBar(
-        iconTheme: IconThemeData(color: GFColors.SUCCESS),
-        backgroundColor: GFColors.FOCUS,
-        title: Text(
-          widget.title,
-          style: TextStyle(color: GFColors.SUCCESS),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: Icon(Icons.arrow_back_ios),
         ),
+        iconTheme: IconThemeData(color: GFColors.SUCCESS),
+        backgroundColor: Colors.transparent,
+        title: Text(
+          widget.title.toUpperCase(),
+          style: TextStyle(
+            fontFamily: 'Monserrat',
+            fontSize: 18.0,
+            color: GFColors.SUCCESS,
+          ),
+        ),
+        centerTitle: true,
         elevation: 0,
       ),
       body: ListView(
         children: <Widget>[
+          SizedBox(height: 25.0),
           Container(
-            height: 100,
+            height: 50,
             color: GFColors.FOCUS,
             child: Center(
               child: Icon(
@@ -73,16 +86,22 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
+          SizedBox(height: 40.0),
           Container(
-            alignment: Alignment.center,
+            height: MediaQuery.of(context).size.height - 195.0,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(45.0),
+                topRight: Radius.circular(45.0),
+              ),
+            ),
             child: Center(
               child: Padding(
                 padding: EdgeInsets.all(10.0),
-                child: Card(
-                  child: Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: LoginForm(),
-                  ),
+                child: Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: LoginForm(),
                 ),
               ),
             ),

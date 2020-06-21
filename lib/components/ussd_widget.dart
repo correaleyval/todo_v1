@@ -36,19 +36,9 @@ class _UssdRootState extends State<UssdRootWidget> {
   Widget build(BuildContext context) {
     if (items != null)
       return ListView.builder(
-          itemCount: items.length + 1,
+          itemCount: items.length,
           itemBuilder: (context, index) {
-            if (index == 0)
-              return Container(
-                height: 100,
-                color: GFColors.FOCUS,
-                child: Center(
-                  child: Icon(Icons.developer_mode,
-                      size: 64, color: GFColors.SUCCESS),
-                ),
-              );
-
-            var item = items[index - 1];
+            var item = items[index];
 
             if (item.type == 'code')
               return UssdWidget(
@@ -119,40 +109,62 @@ class UssdWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GFAppBar(
-        elevation: 0,
-        title: Text(
-          title,
-          style: TextStyle(color: GFColors.SUCCESS),
-        ),
         backgroundColor: GFColors.FOCUS,
-        iconTheme: IconThemeData(color: GFColors.SUCCESS),
-      ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        child: ListView.builder(
-            itemCount: ussdItems.length + 1,
-            itemBuilder: (context, index) {
-              if (index == 0)
-                return Container(
-                  height: 100,
-                  color: GFColors.FOCUS,
-                  child: Icon(icon, size: 64, color: GFColors.SUCCESS),
-                );
+        appBar: GFAppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          ),
+          elevation: 0.0,
+          title: Text(
+            title,
+            style: TextStyle(
+                fontFamily: 'Monserrat',
+                fontSize: 18.0,
+                color: GFColors.SUCCESS),
+          ),
+          backgroundColor: Colors.transparent,
+          iconTheme: IconThemeData(color: GFColors.SUCCESS),
+          centerTitle: true,
+        ),
+        body: ListView(
+          children: <Widget>[
+            SizedBox(height: 25.0),
+            Container(
+              height: 50,
+              color: GFColors.FOCUS,
+              child: Icon(icon, size: 64, color: GFColors.SUCCESS),
+            ),
+            SizedBox(height: 40.0),
+            Container(
+              height: MediaQuery.of(context).size.height - 195.0,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(45.0),
+                  topRight: Radius.circular(45.0),
+                ),
+              ),
+              child: ListView.builder(
+                itemCount: ussdItems.length,
+                itemBuilder: (context, index) {
+                  var item = ussdItems[index];
 
-              var item = ussdItems[index - 1];
-
-              if (item.type == 'code')
-                return UssdWidget(
-                  ussdCode: item,
-                );
-              else
-                return UssdCategoryWidget(
-                  category: item,
-                );
-            }),
-      ),
-    );
+                  if (item.type == 'code')
+                    return UssdWidget(
+                      ussdCode: item,
+                    );
+                  else
+                    return UssdCategoryWidget(
+                      category: item,
+                    );
+                },
+              ),
+            )
+          ],
+        ));
   }
 }
 
@@ -242,29 +254,54 @@ class CodeFormPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: GFColors.FOCUS,
       appBar: GFAppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: Icon(Icons.arrow_back_ios),
+        ),
         elevation: 0,
         title: Text(
           code.name.toUpperCase(),
-          style: TextStyle(color: GFColors.SUCCESS),
+          style: TextStyle(
+            fontFamily: 'Monserrat',
+            fontSize: 18.0,
+            color: GFColors.SUCCESS,
+          ),
         ),
-        backgroundColor: GFColors.FOCUS,
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
         iconTheme: IconThemeData(color: GFColors.SUCCESS),
       ),
-      body: Container(
-        alignment: Alignment.center,
-        child: Center(
-            child: Padding(
+      body: ListView(
+        children: <Widget>[
+          SizedBox(height: 40.0),
+          Container(
+            height: MediaQuery.of(context).size.height - 125.0,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(45.0),
+                topRight: Radius.circular(45.0),
+              ),
+            ),
+            child: Center(
+              child: Padding(
                 padding: EdgeInsets.all(10.0),
-                child: Card(
-                  child: Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: CodeForm(
-                        code: code.code,
-                        fields: code.fields,
-                        type: code.type,
-                      )),
-                ))),
+                child: Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: CodeForm(
+                    code: code.code,
+                    fields: code.fields,
+                    type: code.type,
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
